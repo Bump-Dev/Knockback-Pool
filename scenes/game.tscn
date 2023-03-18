@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://b6kpbkl0uuwdx"]
+
+[ext_resource type="PackedScene" uid="uid://c2rrbjbgjat46" path="res://scenes/player.tscn" id="1_ca6v5"]
+
+[node name="Game" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 128.0
+offset_top = 72.0
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0.498039, 0.00784314, 1)
+
+[node name="Player1" parent="." instance=ExtResource("1_ca6v5")]
+position = Vector2(128, 352)
+
+[node name="Player2" parent="." instance=ExtResource("1_ca6v5")]
+position = Vector2(1152, 352)
