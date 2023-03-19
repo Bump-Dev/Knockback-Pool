@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://dblmwafc0n17m"]
+[gd_scene load_steps=7 format=3 uid="uid://dblmwafc0n17m"]
 
 [ext_resource type="Texture2D" uid="uid://va1u8uj4ecoq" path="res://assets/table.png" id="1_e4khk"]
 [ext_resource type="Texture2D" uid="uid://bu620usnua1cl" path="res://assets/floor.png" id="1_n7k0b"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_qgmn8"]
 [ext_resource type="PackedScene" uid="uid://c2yr50g0p62n2" path="res://scenes/hole.tscn" id="4_d55hs"]
+[ext_resource type="PackedScene" uid="uid://ctjg8uygft0p3" path="res://scenes/player.tscn" id="5_dxxlt"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_my5lw"]
 outline_size = 5
@@ -13,6 +14,33 @@ shadow_color = Color(0, 0, 0, 1)
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_qgmn8")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="Player1" type="Label" parent="CanvasLayer"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 72.0
+offset_bottom = 72.0
+text = "Player 1
+0"
+label_settings = SubResource("LabelSettings_my5lw")
+horizontal_alignment = 1
+
+[node name="Player2" type="Label" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -88.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = 72.0
+grow_horizontal = 0
+text = "Player 2
+0"
+label_settings = SubResource("LabelSettings_my5lw")
+horizontal_alignment = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
 visible = false
@@ -53,29 +81,8 @@ position = Vector2(0, 264)
 [node name="Hole6" parent="Table" instance=ExtResource("4_d55hs")]
 position = Vector2(488, 264)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-visible = false
+[node name="Player1" parent="." instance=ExtResource("5_dxxlt")]
+position = Vector2(-384, 0)
 
-[node name="Player1" type="Label" parent="CanvasLayer"]
-offset_left = 8.0
-offset_top = 8.0
-offset_right = 72.0
-offset_bottom = 72.0
-text = "Player 1
-0"
-label_settings = SubResource("LabelSettings_my5lw")
-horizontal_alignment = 1
-
-[node name="Player2" type="Label" parent="CanvasLayer"]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -88.0
-offset_top = 8.0
-offset_right = -8.0
-offset_bottom = 72.0
-grow_horizontal = 0
-text = "Player 2
-0"
-label_settings = SubResource("LabelSettings_my5lw")
-horizontal_alignment = 1
+[node name="Player2" parent="." instance=ExtResource("5_dxxlt")]
+position = Vector2(384, 0)
