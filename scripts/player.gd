@@ -8,7 +8,8 @@ var id:String
 var reset_pos:bool
 
 func _ready():
-	id = name.right(1)
+	name = str(get_multiplayer_authority())
+	id = name.left(1)
 	$Label.text = id
 	randomize()
 	modulate = Color.from_hsv(randf(), randf_range(0.25, 1), 1)
@@ -17,18 +18,26 @@ func _integrate_forces(state):
 	if reset_pos:
 		state.linear_velocity = Vector2.ZERO
 		state.angular_velocity = 0
-		state.transform.origin= Vector2.ZERO
+		state.transform.origin = Vector2.ZERO
 		reset_pos = false
 		collision_layer = 1
 		collision_mask = 1
-	var dir: = Vector2(
-		Input.get_action_strength("right"+id) - Input.get_action_strength("left"+id),
-		Input.get_action_strength("down"+id) - Input.get_action_strength("up"+id)
-	)
-	apply_force(dir*speed)
-	angular_velocity = linear_velocity.x/50
 	
+	if is_multiplayer_authority():
+		var dir: = Vector2(
+			Input.get_action_strength("right") - Input.get_action_strength("left"),
+			Input.get_action_strength("down") - Input.get_action_strength("up")
+		)
+		apply_force(dir*speed)
+		angular_velocity = linear_velocity.x/50
+		rpc("remote_set_position",linear_velocity,angular_velocity)
+
+@rpc("unreliable")
+func remote_set_position(pos, rot):
+	linear_velocity = pos
+	angular_velocity = rot
 	
+
 func _process(delta):
 	if $AnimationPlayer.current_animation == "lose":
 		position = lerp(position,target_pos,0.05)
@@ -39,6 +48,10 @@ func lose(hole_pos):
 	else:
 		if score > 0:
 			score -= 1
+#	if id == "1":
+#		$"../Game".scores[0] = score
+#	else:
+#		$"../Game".scores[1] = score
 	target_pos = hole_pos
 	call_deferred("set_freeze_enabled",true)
 	collision_layer = 0
@@ -54,7 +67,7 @@ func respawn():
 	reset_pos = true
 
 func _on_body_entered(body):
-	if 'Player' in body.name:
+	if not body.get("id") == null:
 		pusher = body
 		$PusherTimer.start()
 

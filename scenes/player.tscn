@@ -46,13 +46,15 @@ _data = {
 }
 
 [node name="Player1" type="RigidBody2D"]
+mass = 10.0
 physics_material_override = SubResource("PhysicsMaterial_5k0bn")
-continuous_cd = 2
+continuous_cd = 1
 max_contacts_reported = 1
 contact_monitor = true
 can_sleep = false
 lock_rotation = true
 script = ExtResource("1_dp5yb")
+speed = 2250
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.75, 0.75)

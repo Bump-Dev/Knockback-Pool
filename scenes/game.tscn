@@ -1,6 +1,5 @@
-[gd_scene load_steps=7 format=3 uid="uid://dblmwafc0n17m"]
+[gd_scene load_steps=6 format=3 uid="uid://dblmwafc0n17m"]
 
-[ext_resource type="PackedScene" uid="uid://ctjg8uygft0p3" path="res://scenes/player.tscn" id="1_ca6v5"]
 [ext_resource type="Texture2D" uid="uid://va1u8uj4ecoq" path="res://assets/table.png" id="1_e4khk"]
 [ext_resource type="Texture2D" uid="uid://bu620usnua1cl" path="res://assets/floor.png" id="1_n7k0b"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_qgmn8"]
@@ -53,12 +52,6 @@ position = Vector2(0, 264)
 
 [node name="Hole6" parent="Table" instance=ExtResource("4_d55hs")]
 position = Vector2(488, 264)
-
-[node name="Player1" parent="." instance=ExtResource("1_ca6v5")]
-position = Vector2(-240, 0)
-
-[node name="Player2" parent="." instance=ExtResource("1_ca6v5")]
-position = Vector2(216, 0)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 visible = false
