@@ -52,7 +52,6 @@ continuous_cd = 2
 max_contacts_reported = 1
 contact_monitor = true
 can_sleep = false
-lock_rotation = true
 script = ExtResource("1_dp5yb")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
