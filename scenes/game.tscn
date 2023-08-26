@@ -1,10 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://dblmwafc0n17m"]
+[gd_scene load_steps=9 format=3 uid="uid://dblmwafc0n17m"]
 
 [ext_resource type="Texture2D" uid="uid://va1u8uj4ecoq" path="res://assets/table.png" id="1_e4khk"]
 [ext_resource type="Texture2D" uid="uid://bu620usnua1cl" path="res://assets/floor.png" id="1_n7k0b"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_qgmn8"]
+[ext_resource type="PackedScene" uid="uid://bybrek36t0crr" path="res://scenes/strength.tscn" id="3_ac2b7"]
 [ext_resource type="PackedScene" uid="uid://c2yr50g0p62n2" path="res://scenes/hole.tscn" id="4_d55hs"]
 [ext_resource type="PackedScene" uid="uid://ctjg8uygft0p3" path="res://scenes/player.tscn" id="5_dxxlt"]
+[ext_resource type="PackedScene" uid="uid://cynnkpa55em3w" path="res://scenes/speed.tscn" id="6_fkwo7"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_my5lw"]
 outline_size = 5
@@ -14,6 +16,13 @@ shadow_color = Color(0, 0, 0, 1)
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_qgmn8")
+power_ups = Array[PackedScene]([ExtResource("6_fkwo7"), ExtResource("3_ac2b7")])
+
+[node name="Powerups" type="Node" parent="."]
+
+[node name="PowerupTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 visible = false
@@ -46,43 +55,48 @@ horizontal_alignment = 1
 visible = false
 
 [node name="Floor" type="Sprite2D" parent="."]
+z_index = -4096
 texture = ExtResource("1_n7k0b")
 metadata/_edit_lock_ = true
 
 [node name="Table" type="Node2D" parent="."]
+z_index = -2
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
 [node name="Border" type="StaticBody2D" parent="Table"]
 
 [node name="Sprite" type="Sprite2D" parent="Table/Border"]
-texture_filter = 1
+scale = Vector2(1.02, 1.02)
 texture = ExtResource("1_e4khk")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Table/Border"]
 visible = false
 build_mode = 1
-polygon = PackedVector2Array(-512, -288, -512, -224, -480, -192, -480, 192, -512, 224, -512, 288, -448, 288, -416, 256, -48, 256, -16, 288, 16, 288, 48, 256, 416, 256, 448, 288, 512, 288, 512, 224, 480, 192, 480, -192, 512, -240, 512, -288, 448, -288, 416, -256, 48, -256, 16, -288, -16, -288, -48, -256, -416, -256, -448, -288)
+polygon = PackedVector2Array(-512, -288, -512, -240, -492, -208, -492, 208, -512, 240, -512, 288, -464, 288, -432, 262, -48, 262, -16, 288, 16, 288, 48, 262, 432, 262, 464, 288, 512, 288, 512, 240, 492, 208, 492, -208, 512, -240, 512, -288, 464, -288, 432, -262, 48, -262, 16, -288, -16, -288, -48, -262, -432, -262, -464, -288)
 
 [node name="Hole1" parent="Table" instance=ExtResource("4_d55hs")]
+position = Vector2(-496, -272)
 
 [node name="Hole2" parent="Table" instance=ExtResource("4_d55hs")]
-position = Vector2(0, -264)
+position = Vector2(0, -272)
 
 [node name="Hole3" parent="Table" instance=ExtResource("4_d55hs")]
-position = Vector2(488, -264)
+position = Vector2(496, -272)
 
 [node name="Hole4" parent="Table" instance=ExtResource("4_d55hs")]
-position = Vector2(-488, 264)
+position = Vector2(-496, 272)
 
 [node name="Hole5" parent="Table" instance=ExtResource("4_d55hs")]
-position = Vector2(0, 264)
+position = Vector2(0, 272)
 
 [node name="Hole6" parent="Table" instance=ExtResource("4_d55hs")]
-position = Vector2(488, 264)
+position = Vector2(496, 272)
 
 [node name="Player1" parent="." instance=ExtResource("5_dxxlt")]
 position = Vector2(-384, 0)
 
 [node name="Player2" parent="." instance=ExtResource("5_dxxlt")]
 position = Vector2(384, 0)
+
+[connection signal="timeout" from="PowerupTimer" to="." method="_on_powerup_timer_timeout"]
