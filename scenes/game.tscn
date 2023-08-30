@@ -21,7 +21,7 @@ power_ups = Array[PackedScene]([ExtResource("6_fkwo7"), ExtResource("3_ac2b7")])
 [node name="Powerups" type="Node" parent="."]
 
 [node name="PowerupTimer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 20.0
 autostart = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
